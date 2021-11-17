@@ -8,7 +8,7 @@
         <title>Prenotas</title>
         <link rel="shortcut icon" type="image/x-icon " href="#{resource['images/favicon.ico']}"/>
         <h:outputStylesheet library="css" name="style.css"  />
-      
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous"/>
 
@@ -23,37 +23,37 @@
 
             <h:panelGrid  columns="1" cellspacing="1" style="boder:0px;margin-top: 100px" >
 
+                <p:growl id="growl" showDetail="true" sticky="true" /> 
 
-                    <p:growl id="growl" showDetail="true" sticky="true" /> 
-                    
-                    <center>
-                        <img style="padding-top: 40px" src="#{resource['images/logo.jpg']}" alt="Bancatlan"></img>
-                        <h1>Generador de Prenotas</h1></center>
+                <center><img style="margin-top: 30px;" src="#{resource['images/logo.jpg']}" alt="Bancatlan"></img> </center>
+                <center><h1 style="margin-top: 5px;">Generador de Prenotas</h1></center>
 
-                        <p:panel   style="width: auto; border: 1;margin-top: 5px">
-                            <center> <h4>Seleccione el archivo de excel</h4></center>        
-                           
+                <p:panel   style="width: auto; border: 1;margin-top: 5px">
+                    <center> <h4>Seleccione el archivo de excel</h4></center>        
 
-                            <center><h:form enctype="multipart/form-data" style="margin-top: 10px;margin-bottom: 10px" >
-                                    <p:fileUpload mode="simple" value="#{fileBean.file}"
-                                                  />
-                                    <p:commandButton style="margin-top: 10px"
-                                        value="Upload" action="#{fileBean.upload}" ajax="false" />  
-                                </h:form></center>
 
-                        </p:panel>
+                    <center><h:form enctype="multipart/form-data" style="margin-top: 10px;margin-bottom: 10px" >
+                            <p:fileUpload mode="simple" value="#{fileBean.file}"
+                                          />
+                            <p:commandButton style="margin-top: 10px"
+                                             value="Upload" action="#{fileBean.upload}" ajax="false" />  
+                        </h:form></center>
 
-                </h:panelGrid>
+                </p:panel>
+
+            </h:panelGrid>
 
         </center>
-        <footer style="font-size:12px; font-family: sans-serif; background-color:#D20523; 
-                height: 30px; width:99.2%; position:absolute; bottom: 0px">
+        
+        <center>
+            <footer style="font-size:12px; font-family: sans-serif; background-color:#C50B20; 
+                    height: 30px; width:100%; position:absolute; bottom: 0px">
 
-            <span style="position:absolute; left:0px; margin-top: 10px; color: #FFF " >&emsp;&emsp;Banco Atlántida Honduras, Copyright © 2019 Intranet. All rights reserved.</span> 
-            <span style="position:absolute; right:0px;  margin-top: 10px; color: #FFF">Developer &nbsp;|&nbsp;enajera@bancatlan.hn&emsp;</span> 
+                <span style="position:absolute; left:0px; margin-top: 10px; margin-bottom: 5px; color: #FFF " >&emsp;&emsp;Banco Atlántida Honduras, Copyright © 2019 Intranet. All rights reserved.</span> 
+                <span style="position:absolute; right:0px;  margin-top: 10px; margin-bottom: 5px;  color: #FFF">Developer &nbsp;|&nbsp;enajera@bancatlan.hn&emsp;</span> 
 
-        </footer>
-
+            </footer>
+        </center>
 
     </h:body>
 </html>

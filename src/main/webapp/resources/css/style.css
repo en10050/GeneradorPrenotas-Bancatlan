@@ -12,11 +12,11 @@ and open the template in the editor.
 }
 
 .background{
-   background-color: #D20523; 
+    background-color: #D20523; 
 }
 
 .graphicImage { 
-  border-radius: 50%;
+    border-radius: 50%;
 }
 .left{
     left: auto;
@@ -29,6 +29,12 @@ and open the template in the editor.
     color: #FFF;
 }
 
-img {
-  border-radius: 50%;
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 5
+        px
+        ;
+    margin-bottom: 10
+        px
+        ;
 }
+
