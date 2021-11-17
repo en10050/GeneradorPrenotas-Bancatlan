@@ -1,0 +1,34 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/06/2019, 04:01:17 PM
+    Author     : 504900492
+*/
+.davPanel{
+    background-color: #D20523;
+}
+
+.background{
+   background-color: #D20523; 
+}
+
+.graphicImage { 
+  border-radius: 50%;
+}
+.left{
+    left: auto;
+}
+.right{
+    right:auto;
+}
+
+.font-color{
+    color: #FFF;
+}
+
+img {
+  border-radius: 50%;
+}
