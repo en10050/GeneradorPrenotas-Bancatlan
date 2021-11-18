@@ -57,7 +57,14 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>4.1.2</version>
-        </dependency>                
+        </dependency>  
+        
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-tools</artifactId>
+            <version>2.2.5</version>
+        </dependency>  
+                                                             
     </dependencies>
 
     <build>
@@ -129,6 +136,26 @@
                 <groupId>org.jvnet.jax-ws-commons</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>2.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>150.150.6.112_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <packageName>infatlan.hn.generador.prenotas.ws</packageName>
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+                            </vmArgs>
+                            <wsdlLocation>http://150.150.6.112:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/ServicioSrvBasa041Interfaz.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-ServicioSrvBasa041Interfaz</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>javax.xml</groupId>

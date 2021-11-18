@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://srvbasa.bancatlan.hn:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?WSDL" uri="wsdl/srvbasa.bancatlan.hn_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl"/>
+    <system systemId="http://srvbasa.bancatlan.hn:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?wsdl=ServicioSrvBasa041Interfaz.wsdl" uri="wsdl/srvbasa.bancatlan.hn_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl_ServicioSrvBasa041Interfaz.wsdl"/>
+    <system systemId="http://150.150.6.112:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?WSDL" uri="wsdl/150.150.6.112_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl"/>
+    <system systemId="http://150.150.6.112:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?wsdl" uri="wsdl/150.150.6.112_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl"/>
+    <system systemId="http://150.150.6.112:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?wsdl=ServicioSrvBasa041Interfaz.wsdl" uri="wsdl/150.150.6.112_30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz.wsdl_ServicioSrvBasa041Interfaz.wsdl"/>
+</catalog>

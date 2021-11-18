@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://interfaces.srvbasa041.hn.infatlan/" name="ServicioSrvBasa041Interfaz" targetNamespace="http://interfaces.srvbasa041.hn.infatlan/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.srvbasa041.hn.infatlan/" elementFormDefault="unqualified" targetNamespace="http://interfaces.srvbasa041.hn.infatlan/" version="1.0">
+
+  <xs:element name="ejecutarSrvBasa041" type="tns:ejecutarSrvBasa041"/>
+
+  <xs:element name="ejecutarSrvBasa041Cancel" type="tns:ejecutarSrvBasa041Cancel"/>
+
+  <xs:element name="ejecutarSrvBasa041CancelResponse" type="tns:ejecutarSrvBasa041CancelResponse"/>
+
+  <xs:element name="ejecutarSrvBasa041Response" type="tns:ejecutarSrvBasa041Response"/>
+
+  <xs:complexType name="ejecutarSrvBasa041">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PeticionSrvBasa041" type="tns:PeticionSrvBasa041"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PeticionSrvBasa041">
+    <xs:complexContent>
+      <xs:extension base="tns:PeticionBase">
+        <xs:sequence>
+          <xs:element name="generarCodigoPrenota" type="xs:string"/>
+          <xs:element name="tipoPrenota" type="xs:string"/>
+          <xs:element name="numeroCuenta" type="xs:string"/>
+          <xs:element name="moneda" type="xs:string"/>
+          <xs:element name="monto" type="xs:double"/>
+          <xs:element name="fechaFinalizacionPlanificada" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="PeticionBase">
+    <xs:sequence>
+      <xs:element default="" minOccurs="0" name="codigoPeticionUnica" type="xs:string"/>
+      <xs:element default="000" minOccurs="0" name="codigoTransaccion" type="xs:string"/>
+      <xs:element default="01" minOccurs="0" name="codigoCanal" type="xs:string"/>
+      <xs:element minOccurs="0" name="usuarioPeticion" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccionIPPeticion" type="xs:string"/>
+      <xs:element default="HN" minOccurs="0" name="codigoPais" type="xs:string"/>
+      <xs:element default="01" minOccurs="0" name="codigoBanco" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="codigoCoreBanking" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="parametroAdicionalColeccion" type="tns:ParametroAdicional"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParametroAdicional">
+    <xs:sequence>
+      <xs:element default="0" name="numeroLinea" type="xs:long"/>
+      <xs:element default="" minOccurs="0" name="descripcionValor" type="xs:string"/>
+      <xs:element default="" minOccurs="0" name="valor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ejecutarSrvBasa041Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RespuestaSrvBasa041" type="tns:RespuestaSrvBasa041"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RespuestaSrvBasa041">
+    <xs:complexContent>
+      <xs:extension base="tns:RespuestaBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEstadoPrenota" type="xs:string"/>
+          <xs:element minOccurs="0" name="nombreEstadoPrenota" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoPrenota" type="xs:string"/>
+          <xs:element minOccurs="0" name="nombrePrenota" type="xs:string"/>
+          <xs:element minOccurs="0" name="moneda" type="xs:string"/>
+          <xs:element minOccurs="0" name="monto" type="xs:double"/>
+          <xs:element minOccurs="0" name="fechaInicio" type="xs:string"/>
+          <xs:element minOccurs="0" name="fechaFinalizacionPlanificada" type="xs:string"/>
+          <xs:element minOccurs="0" name="numeroCuenta" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RespuestaBase">
+    <xs:sequence>
+      <xs:element default="" minOccurs="0" name="codigoPeticionUnica" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigoMensaje" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigoUnicoEjecucionSAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="idReferenciaSAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="fechaHoraCreacionSAP" type="xs:string"/>
+      <xs:element minOccurs="0" name="estadoTransaccionSAP" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="coleccionErrorSAP" nillable="true" type="tns:ItemError"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ItemError">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idMensajeError" type="xs:string"/>
+      <xs:element minOccurs="0" name="severidad" type="xs:string"/>
+      <xs:element minOccurs="0" name="detalleError" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ejecutarSrvBasa041Cancel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PeticionSrvBasa041Cancel" type="tns:PeticionSrvBasa041Cancel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PeticionSrvBasa041Cancel">
+    <xs:complexContent>
+      <xs:extension base="tns:PeticionBase">
+        <xs:sequence>
+          <xs:element name="codigoPrenota" type="xs:string"/>
+          <xs:element name="numeroCuenta" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ejecutarSrvBasa041CancelResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RespuestaSrvBasa041Cancel" type="tns:RespuestaSrvBasa041Cancel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RespuestaSrvBasa041Cancel">
+    <xs:complexContent>
+      <xs:extension base="tns:RespuestaBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="codigoEstado" type="xs:string"/>
+          <xs:element minOccurs="0" name="nombreEstado" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoCodigo" type="xs:string"/>
+          <xs:element minOccurs="0" name="tipoNombre" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="coleccionLog" type="tns:logs"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="logs">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="detalle" type="xs:string"/>
+      <xs:element minOccurs="0" name="idMensaje" type="xs:string"/>
+      <xs:element minOccurs="0" name="severidad" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ejecutarSrvBasa041">
+    <wsdl:part element="ns1:ejecutarSrvBasa041" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ejecutarSrvBasa041Cancel">
+    <wsdl:part element="ns1:ejecutarSrvBasa041Cancel" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ejecutarSrvBasa041Response">
+    <wsdl:part element="ns1:ejecutarSrvBasa041Response" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ejecutarSrvBasa041CancelResponse">
+    <wsdl:part element="ns1:ejecutarSrvBasa041CancelResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ServicioSrvBasa041Interfaz">
+    <wsdl:operation name="ejecutarSrvBasa041">
+      <wsdl:input message="ns1:ejecutarSrvBasa041" name="ejecutarSrvBasa041">
+    </wsdl:input>
+      <wsdl:output message="ns1:ejecutarSrvBasa041Response" name="ejecutarSrvBasa041Response">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ejecutarSrvBasa041Cancel">
+      <wsdl:input message="ns1:ejecutarSrvBasa041Cancel" name="ejecutarSrvBasa041Cancel">
+    </wsdl:input>
+      <wsdl:output message="ns1:ejecutarSrvBasa041CancelResponse" name="ejecutarSrvBasa041CancelResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

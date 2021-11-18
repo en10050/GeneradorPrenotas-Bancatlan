@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://expuestos.servicios.srvbasa041.hn.infatlan/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://interfaces.srvbasa041.hn.infatlan/" name="SrvBasa041ServiceService" targetNamespace="http://expuestos.servicios.srvbasa041.hn.infatlan/">
+  <wsdl:import location="http://srvbasa.bancatlan.hn:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz?wsdl=ServicioSrvBasa041Interfaz.wsdl" namespace="http://interfaces.srvbasa041.hn.infatlan/">
+    </wsdl:import>
+  <wsdl:binding name="SrvBasa041ServiceServiceSoapBinding" type="ns1:ServicioSrvBasa041Interfaz">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ejecutarSrvBasa041">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="ejecutarSrvBasa041">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ejecutarSrvBasa041Response">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ejecutarSrvBasa041Cancel">
+      <soap12:operation soapAction="" style="document"/>
+      <wsdl:input name="ejecutarSrvBasa041Cancel">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ejecutarSrvBasa041CancelResponse">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SrvBasa041ServiceService">
+    <wsdl:port binding="tns:SrvBasa041ServiceServiceSoapBinding" name="SrvBasa041ServicePort">
+      <soap12:address location="http://srvbasa.bancatlan.hn:30041/SRVBASA041-1.0/ServicioSrvBasa041Interfaz"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
