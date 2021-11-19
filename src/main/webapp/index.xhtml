@@ -33,11 +33,13 @@
 
 
                     <center><h:form enctype="multipart/form-data" style="margin-top: 10px;margin-bottom: 10px" >
-                            <p:fileUpload mode="simple" value="#{fileBean.file}"
-                                          />
+                            <p:fileUpload mode="simple" allowTypes="/(\.|\/)(xlsx)$/"
+                                          update="messages"  value="#{fileBean.file}"  />
                             <p:commandButton style="margin-top: 10px"
                                              value="Upload" action="#{fileBean.upload}" ajax="false" />  
+                             <p:growl id="messages" showDetail="true"/>
                         </h:form></center>
+                    
 
                 </p:panel>
 
