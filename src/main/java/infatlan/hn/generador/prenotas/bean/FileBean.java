@@ -69,16 +69,21 @@ public class FileBean {
         }
 
         in.close();
-        out.flush();
+        out.flush(); 
         out.close();
 
         ProcessXLS xls = new ProcessXLS(destination + fileName);
         String[] path = xls.readXLS();
 
         if (path[0].equals("02")) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error de formato/sin respuesta del servicio web."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Problemas con servicio web de Prenotas."));
 
-        } else {
+        }
+        else if(path[0].equals("03")){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Error de formato numerico en archivo excel."));
+
+        }
+        else {
             zipFile(path);
         }
 
