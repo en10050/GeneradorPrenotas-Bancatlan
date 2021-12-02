@@ -73,74 +73,79 @@ public class ProcessXLS {
         DataFormatter formatter = new DataFormatter();
         ArrayList<String[]> array = new ArrayList<String[]>();
 
- 
-            for (int i = 1; i < rows; i++) {
-                datos = new String[cols];
-                for (int j = 0; j < cols; j++) {
+        for (int i = 1; i < rows; i++) {
+            datos = new String[cols];
+            for (int j = 0; j < cols; j++) {
 
-                    cell = excelSheet.getRow(i).getCell(j);
-                    String cellContents = formatter.formatCellValue(cell);
-                    if (cellContents.isEmpty()) {
-                        break;
-                    } else {
-                        data[i][j] = cellContents;
-                        datos[j] = cellContents;
-                    }
-
+                cell = excelSheet.getRow(i).getCell(j);
+                String cellContents = formatter.formatCellValue(cell);
+                if (cellContents.isEmpty()) {
+                    break;
+                } else {
+                    data[i][j] = cellContents;
+                    datos[j] = cellContents;
                 }
-                array.add(datos);
 
             }
+            array.add(datos);
 
-            fis.close();
+        }
 
-            SrvBasa041ServiceService ws
-                    = new SrvBasa041ServiceService(new URL(propiedades.getProperty("web.service.url")));
+        fis.close();
 
-            ServicioSrvBasa041Interfaz servicio = ws.getSrvBasa041ServicePort();
+        SrvBasa041ServiceService ws
+                = new SrvBasa041ServiceService(new URL(propiedades.getProperty("web.service.url")));
 
-            PeticionSrvBasa041 request;
-            RespuestaSrvBasa041 response = null;
-            Trama trama = new Trama();
+        ServicioSrvBasa041Interfaz servicio = ws.getSrvBasa041ServicePort();
 
-            ArrayList<Trama> tramasBuenas = new ArrayList<Trama>();
-            ArrayList<Trama> tramasMalas = new ArrayList<Trama>();
+        PeticionSrvBasa041 request;
+        RespuestaSrvBasa041 response = null;
+        Trama trama = new Trama();
 
-            Calendar c = Calendar.getInstance();
-            String dia = Integer.toString(c.get(Calendar.DATE));
-            String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
-            String anio = Integer.toString(c.get(Calendar.YEAR));
+        ArrayList<Trama> tramasBuenas = new ArrayList<Trama>();
+        ArrayList<Trama> tramasMalas = new ArrayList<Trama>();
 
-            String x = "00";
+        Calendar c = Calendar.getInstance();
+        String dia = Integer.toString(c.get(Calendar.DATE));
+        String mes = Integer.toString(c.get(Calendar.MONTH) + 1);
+        String anio = Integer.toString(c.get(Calendar.YEAR));
 
-            try {
-                for (String[] arreglos : array) {
-                    request = new PeticionSrvBasa041();
+        String x = "00";
 
-                    request.setCodigoTransaccion(propiedades.getProperty("codigoTransaccion"));
-                    request.setCodigoCanal(propiedades.getProperty("codigoCanal"));
-                    request.setUsuarioPeticion(propiedades.getProperty("usuarioPeticion"));
-                    request.setCodigoPais(propiedades.getProperty("codigoPais"));
-                    request.setCodigoBanco(propiedades.getProperty("codigoBanco"));
-                    request.setCodigoCoreBanking(propiedades.getProperty("codigoCoreBanking"));
+        String canal = propiedades.getProperty("codigoCanal");
+        String usuarioPeticion = propiedades.getProperty("usuarioPeticion");
+        String agencia = propiedades.getProperty("agencia");
+        String codigoMoneda = propiedades.getProperty("codigoMoneda");
+        String tipoTrn = propiedades.getProperty("tipoTrn");
 
-                    request.setGenerarCodigoPrenota(getCodigo());
-                    request.setNumeroCuenta(arreglos[0]);
-                    try {
-                        request.setMonto(Double.valueOf(arreglos[1]));
+        try {
+            for (String[] arreglos : array) {
+                request = new PeticionSrvBasa041();
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        pos = new String[1];
-                        pos[0] = "03";
-                        return pos;
-                    }
+                request.setCodigoTransaccion(propiedades.getProperty("codigoTransaccion"));
+                request.setCodigoCanal(arreglos[8].equals("-") ? "0000" : addZero(arreglos[8].trim(), 4));
+                request.setUsuarioPeticion(arreglos[12].equals("-") ? usuarioPeticion : arreglos[12].trim());
+                request.setCodigoPais(propiedades.getProperty("codigoPais"));
+                request.setCodigoBanco(propiedades.getProperty("codigoBanco"));
+                request.setCodigoCoreBanking(propiedades.getProperty("codigoCoreBanking"));
 
-                    request.setMoneda(propiedades.getProperty("moneda"));
-                    request.setTipoPrenota(arreglos[7]);
-                    request.setFechaFinalizacionPlanificada(arreglos[6] + "-" + arreglos[5] + "-" + arreglos[4]);
-                    String codigoTransaccion = arreglos[3];
-                    String decripcion = arreglos[2];
+                request.setGenerarCodigoPrenota(getCodigo());
+                request.setNumeroCuenta(arreglos[0]);
+                try {
+                    request.setMonto(Double.valueOf(arreglos[1]));
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    pos = new String[1];
+                    pos[0] = "03";
+                    return pos;
+                }
+
+                request.setMoneda(propiedades.getProperty("moneda"));
+                request.setTipoPrenota(arreglos[7]);
+                request.setFechaFinalizacionPlanificada(arreglos[6] + "-" + arreglos[5] + "-" + arreglos[4]);
+                String codigoTransaccion = arreglos[3];
+                String decripcion = arreglos[2];
 //
 //            System.out.println("setGenerarCodigoPrenota:" + request.getGenerarCodigoPrenota());
 //            System.out.println("setNumeroCuenta:" + request.getNumeroCuenta());
@@ -151,73 +156,73 @@ public class ProcessXLS {
 //            System.out.println("codigoTransaccion:" + codigoTransaccion);
 //            System.out.println("--------------------------------------------------------------------------");
 
-                    response = servicio.ejecutarSrvBasa041(request);
-//            System.out.println("RESPONSE");
-//            System.out.println("CodigoMensaje:"+response.getCodigoMensaje());
-//            System.out.println("Mensaje:"+response.getMensaje());
-//            System.out.println("--------------------------------------------------------------------------");
+                response = servicio.ejecutarSrvBasa041(request);
+            System.out.println("RESPONSE");
+            System.out.println("CodigoMensaje:"+response.getCodigoMensaje());
+            System.out.println("Mensaje:"+response.getMensaje());
+            System.out.println("--------------------------------------------------------------------------");
 
-                    //Setear las tramas
-                    trama = new Trama();
-                    trama.setCanal(request.getCodigoCanal());
-                    trama.setAgencia(propiedades.getProperty("agencia"));
-                    trama.setMoneda(propiedades.getProperty("codigoMoneda"));
-                    trama.setCuenta(request.getNumeroCuenta());
-                    trama.setMonto(request.getMonto() + "");
-                    trama.setReferencia(request.getGenerarCodigoPrenota());
-                    trama.setDescripcion(decripcion);
-                    trama.setCodigoTrn(codigoTransaccion);
-                    trama.setLlaveAdicional(propiedades.getProperty("llaveAdicional"));
-                    trama.setDebCreFlag(propiedades.getProperty("tipoTrn"));
-                    trama.setUser(request.getUsuarioPeticion());
-                    trama.setDia(dia);
-                    trama.setMes(mes);
-                    trama.setAnio(anio);
+                //Setear las tramas
+                trama = new Trama();
+                trama.setCanal(request.getCodigoCanal());
+                trama.setAgencia(addZero(arreglos[9], 9));
+                trama.setMoneda(arreglos[10].trim());
+                trama.setCuenta(request.getNumeroCuenta());
+                trama.setMonto(request.getMonto() + "");
+                trama.setReferencia(request.getGenerarCodigoPrenota());
+                trama.setDescripcion(decripcion.trim());
+                trama.setCodigoTrn(codigoTransaccion);
+                trama.setLlaveAdicional(propiedades.getProperty("llaveAdicional"));
+                trama.setUserDos(arreglos[13].equals("-") ? "0000000000" : arreglos[13].trim());
+                trama.setDebCreFlag(arreglos[11].trim());
+                trama.setUser(request.getUsuarioPeticion());
+                trama.setDia(dia);
+                trama.setMes(mes);
+                trama.setAnio(anio);
 
-                    trama.setRespuesta(response.getCodigoMensaje());
-                    System.out.println("Trama:" + trama.toString());
-                    if (trama.getRespuesta().equals("00")) {
-                        tramasBuenas.add(trama);
-                    } else {
-                        String stb = "";
-                        for (ItemError itm : response.getColeccionErrorSAP()) {
-                            stb += ("{\n"
-                                    + "getDetalleError:" + itm.getDetalleError() + ",\n"
-                                    + "getIdMensajeError:" + itm.getIdMensajeError() + ",\n"
-                                    + "getSeveridad:" + itm.getSeveridad() + "\n"
-                                    + "}" + "\n");
+                trama.setRespuesta(response.getCodigoMensaje());
+                System.out.println("Trama:" + trama.toString());
+               
+                if (trama.getRespuesta().equals("00")) {
+                    tramasBuenas.add(trama);
+                } else {
+                    String stb = "";
+                    for (ItemError itm : response.getColeccionErrorSAP()) {
+                        stb += ("{\n"
+                                + "getDetalleError:" + itm.getDetalleError() + ",\n"
+                                + "getIdMensajeError:" + itm.getIdMensajeError() + ",\n"
+                                + "getSeveridad:" + itm.getSeveridad() + "\n"
+                                + "}" + "\n");
 
-                        }
-
-                        trama.setMsg(stb);
-                        tramasMalas.add(trama);
                     }
 
-                    System.out.println("--------------------------------------------------------------------------");
-
+                    trama.setMsg(stb);
+                    tramasMalas.add(trama);
                 }
 
-                pos = new String[2];
+                System.out.println("--------------------------------------------------------------------------");
 
-                if (!tramasMalas.isEmpty()) {
-                    pos[1] = crearTxt(tramasMalas, "MALAS_" + anio + mes + dia + ".txt");
-                } else {
-                    pos[1] = "";
-                }
-                pos[0] = crearTxt(tramasBuenas, "POS_" + anio + mes + dia + ".txt");
-
-                System.out.println("POS>" + pos.length);
-            } catch (Exception e) {
-                e.printStackTrace();
-                pos = new String[1];
-                pos[0] = "02";
             }
 
-            return pos;
+            pos = new String[2];
 
+            if (!tramasMalas.isEmpty()) {
+                pos[1] = crearTxt(tramasMalas, "MALAS_" + anio + mes + dia + ".txt");
+            } else {
+                pos[1] = "";
+            }
+            pos[0] = crearTxt(tramasBuenas, "POS_" + anio + mes + dia + ".txt");
+
+            System.out.println("POS>" + pos.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+            pos = new String[1];
+            pos[0] = "02";
         }
 
-    
+        return pos;
+
+    }
 
     public String crearTxt(ArrayList<Trama> tramas, String nombre) throws IOException {
         FileUtilities filesU = new FileUtilities();
@@ -227,6 +232,20 @@ public class ProcessXLS {
     public String getCodigo() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSS");
         return sdf.format(new Date()) + String.valueOf(idCounter.getAndIncrement());
+    }
+
+    public String addZero(String dato, int n) {
+        String nuevo = "";
+        if (dato.length() < n) {
+            int ciclo = dato.length()-n;
+            for (int i = 0; i < ciclo; i++) {
+                nuevo += "0";
+            }
+            return nuevo + dato;
+        }
+
+        return dato;
+        
     }
 
     public static void main(String[] args) {

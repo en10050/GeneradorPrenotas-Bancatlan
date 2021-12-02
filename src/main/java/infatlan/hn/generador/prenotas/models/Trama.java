@@ -20,6 +20,7 @@ public class Trama {
     private String descripcion;
     private String codigoTrn;
     private String llaveAdicional;
+    private String userDos;
     private String debCreFlag;
     private String user;
     private String dia;
@@ -155,12 +156,21 @@ public class Trama {
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
+    public String getUserDos() {
+        return userDos;
+    }
+
+    public void setUserDos(String userDos) {
+        this.userDos = userDos;
+    }
+    
     
     
 
     @Override
     public String toString() {
-        return canal + "|" + agencia + "|" + moneda + "|" + cuenta + "|" + monto + "|" + referencia + "|" + descripcion + "|" + codigoTrn + "|" + llaveAdicional + "|" + debCreFlag + "|" + user + "|" + dia + "|" + mes + "|" + anio + "|" + respuesta + "|";
+        return canal + "|" + agencia + "|" + moneda + "|" + cuenta + "|" + monto + "|" + referencia + "|" + descripcion + "|" + codigoTrn + "|" + llaveAdicional + "|"+ userDos + "|"+ debCreFlag + "|" + user + "|" + dia + "|" + mes + "|" + anio + "|" + respuesta + "|";
     }
     
     
