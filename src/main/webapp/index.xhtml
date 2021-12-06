@@ -29,24 +29,34 @@
                 <center><h1 style="margin-top: 5px;">Generador de Prenotas</h1></center>
 
                 <p:panel   style="width: auto; border: 1;margin-top: 5px">
-                    <center> <h4>Seleccione el archivo de excel</h4></center>        
+                    <center> <h4 style="margin-bottom:5px;"> Seleccione el archivo de excel</h4></center>        
 
 
                     <center><h:form enctype="multipart/form-data" style="margin-top: 10px;margin-bottom: 10px" >
                             <p:fileUpload mode="simple" allowTypes="/(\.|\/)(xlsx)$/"
-                                          update="messages"  value="#{fileBean.file}"  />
+                                          update="messages"  value="#{fileBean.file}" style="margin-top: 10px" />
+
+                            <p:selectOneRadio style="margin-top: 10px" id="tipo" value="#{fileBean.tipo}" unselectable="true">
+                                <f:selectItem itemLabel="ATM" itemValue="ATM"/>
+                                <f:selectItem itemLabel="POS" itemValue="POS"/>
+                                <f:selectItem itemLabel="TRN" itemValue="TRN"/>
+                            </p:selectOneRadio>
+                            
+                            
+                            <p:selectBooleanCheckbox value="#{fileBean.txt}" itemLabel="Solo texto"/>
+
                             <p:commandButton style="margin-top: 10px"
                                              value="Upload" action="#{fileBean.upload}" ajax="false" />  
-                             <p:growl id="messages" showDetail="true"/>
+                            <p:growl id="messages" showDetail="true"/>
                         </h:form></center>
-                    
+
 
                 </p:panel>
 
             </h:panelGrid>
 
         </center>
-        
+
         <center>
             <footer style="font-size:12px; font-family: sans-serif; background-color:#C50B20; 
                     height: 30px; width:100%; position:absolute; bottom: 0px">

@@ -55,8 +55,9 @@ public class ProcessXLS {
 
     }
 
-    public String[] readXLS() throws FileNotFoundException, IOException {
+    public String[] readXLS(String tipo, Boolean txt) throws FileNotFoundException, IOException {
         String[] pos;
+        String resp = "00";
 
         File f = new File(fileName);
         FileInputStream fis = new FileInputStream(f);
@@ -146,21 +147,18 @@ public class ProcessXLS {
                 request.setFechaFinalizacionPlanificada(arreglos[6] + "-" + arreglos[5] + "-" + arreglos[4]);
                 String codigoTransaccion = arreglos[3];
                 String decripcion = arreglos[2];
-//
-//            System.out.println("setGenerarCodigoPrenota:" + request.getGenerarCodigoPrenota());
-//            System.out.println("setNumeroCuenta:" + request.getNumeroCuenta());
-//            System.out.println("setMonto:" + request.getMonto());
-//            System.out.println("setMoneda:" + request.getMoneda());
-//            System.out.println("setTipoPrenota:" + request.getTipoPrenota());
-//            System.out.println("setFechaFinalizacionPlanificada:" + request.getFechaFinalizacionPlanificada());
-//            System.out.println("codigoTransaccion:" + codigoTransaccion);
-//            System.out.println("--------------------------------------------------------------------------");
 
-                response = servicio.ejecutarSrvBasa041(request);
-            System.out.println("RESPONSE");
-            System.out.println("CodigoMensaje:"+response.getCodigoMensaje());
-            System.out.println("Mensaje:"+response.getMensaje());
-            System.out.println("--------------------------------------------------------------------------");
+                //Evalua si va al servicio web
+                if (!txt) {
+                    response = servicio.ejecutarSrvBasa041(request);
+                    resp = response.getCodigoMensaje();
+                    System.out.println("RESPONSE");
+                    System.out.println("CodigoMensaje:" + response.getCodigoMensaje());
+                    System.out.println("Mensaje:" + response.getMensaje());
+                    System.out.println("--------------------------------------------------------------------------");
+                } else {
+                    System.out.println("NO SE CONECTO A WS");
+                }
 
                 //Setear las tramas
                 trama = new Trama();
@@ -180,9 +178,9 @@ public class ProcessXLS {
                 trama.setMes(mes);
                 trama.setAnio(anio);
 
-                trama.setRespuesta(response.getCodigoMensaje());
+                trama.setRespuesta(resp);
                 System.out.println("Trama:" + trama.toString());
-               
+
                 if (trama.getRespuesta().equals("00")) {
                     tramasBuenas.add(trama);
                 } else {
@@ -211,9 +209,8 @@ public class ProcessXLS {
             } else {
                 pos[1] = "";
             }
-            pos[0] = crearTxt(tramasBuenas, "POS_" + anio + mes + dia + ".txt");
+            pos[0] = crearTxt(tramasBuenas, tipo + "_" + anio + mes + dia + ".txt");
 
-            System.out.println("POS>" + pos.length);
         } catch (Exception e) {
             e.printStackTrace();
             pos = new String[1];
@@ -237,7 +234,7 @@ public class ProcessXLS {
     public String addZero(String dato, int n) {
         String nuevo = "";
         if (dato.length() < n) {
-            int ciclo = dato.length()-n;
+            int ciclo = dato.length() - n;
             for (int i = 0; i < ciclo; i++) {
                 nuevo += "0";
             }
@@ -245,7 +242,7 @@ public class ProcessXLS {
         }
 
         return dato;
-        
+
     }
 
     public static void main(String[] args) {

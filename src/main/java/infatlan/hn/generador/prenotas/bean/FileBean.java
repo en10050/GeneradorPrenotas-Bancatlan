@@ -35,6 +35,8 @@ public class FileBean {
     private UploadedFile file;
     private StreamedContent down;
     private String destination = "/tmp/";
+    private String tipo = "ATM";
+    private Boolean txt = true;
 
     public String upload() throws IOException {
 
@@ -73,7 +75,7 @@ public class FileBean {
         out.close();
 
         ProcessXLS xls = new ProcessXLS(destination + fileName);
-        String[] path = xls.readXLS();
+        String[] path = xls.readXLS(tipo,txt);
 
         if (path[0].equals("02")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Problemas con servicio web de Prenotas."));
@@ -156,5 +158,41 @@ public class FileBean {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
+
+    public StreamedContent getDown() {
+        return down;
+    }
+
+    public void setDown(StreamedContent down) {
+        this.down = down;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Boolean getTxt() {
+        return txt;
+    }
+
+    public void setTxt(Boolean txt) {
+        this.txt = txt;
+    }
+    
+    
+    
+    
 
 }
